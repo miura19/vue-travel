@@ -1,10 +1,57 @@
 <script setup lang="ts">
+import { supabase } from "../supabase"
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const email = ref('');
+const password = ref('');
+const name = ref('');
+
+const handleSubmit = async () => {
+	console.log('Name:', name.value);
+	console.log('Email:', email.value);
+	console.log('Password:', password.value);
+	try {
+		const { error, data } = await supabase.auth.signUp({
+			email: email.value,
+			password: password.value,
+			options: {
+				data: {
+					userName: name.value,
+				},
+			},
+		});
+
+		if (error !== null) {
+			throw error;
+		}
+
+		if (data) {
+			router.push({
+				name: 'about',
+			});
+		}
+	} catch (error) {
+		console.error('Sign-up error:', error);
+		alert(error);
+	}
+};
+
+// onMounted(async () => {
+// 	const { data, error } = await supabase
+// 		.from('auth.users')
+// 		.select()
+// 	console.log(data);
+
+// })
 
 </script>
 
 <template>
 	<main class="w-full max-w-2xl mx-auto p-6">
-		<div class="mt-40 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+		<div class="mt-40 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
 			<div class="p-4 sm:p-7">
 				<div class="text-center">
 					<h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign Up</h1>
@@ -19,14 +66,14 @@
 
 				<div class="mt-5">
 					<!-- Form -->
-					<form>
+					<form @submit.prevent="handleSubmit">
 						<div class="grid gap-y-4">
 							<div>
 								<label for="name" class="block text-sm mb-2 dark:text-white">Your Name</label>
 								<div class="relative">
-									<input type="name" id="name" name="name"
-										class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm"
-										required aria-describedby="name-error">
+									<input type="name" id="name" name="name" v-model="name"
+										class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm" required
+										aria-describedby="name-error">
 								</div>
 								<p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email
 									address so we can get back to you</p>
@@ -36,9 +83,9 @@
 							<div>
 								<label for="email" class="block text-sm mb-2 dark:text-white">Email address</label>
 								<div class="relative">
-									<input type="email" id="email" name="email"
-										class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm"
-										required aria-describedby="email-error">
+									<input type="email" id="email" name="email" v-model="email"
+										class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm" required
+										aria-describedby="email-error">
 								</div>
 								<p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email
 									address so we can get back to you</p>
@@ -50,9 +97,9 @@
 									<label for="password" class="block text-sm mb-2 dark:text-white">Password</label>
 								</div>
 								<div class="relative">
-									<input type="password" id="password" name="password"
-										class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm"
-										required aria-describedby="password-error">
+									<input type="password" id="password" name="password" v-model="password"
+										class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm" required
+										aria-describedby="password-error">
 								</div>
 								<p class="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
 							</div>
