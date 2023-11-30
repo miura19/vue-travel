@@ -53,7 +53,7 @@ const handleSubmit = async () => {
 							href="../examples/html/signup.html">
 							Sign in here
 						</a> -->
-						<router-link to="/signin" class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign in here</router-link>
+						<router-link to="/" class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign in here</router-link>
 					</p>
 				</div>
 

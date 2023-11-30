@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SignUp from '../views/SignUp.vue'
 import SignIn from '../views/SignIn.vue'
+import SignUp from '../views/SignUp.vue'
 import Home from '../views/Home.vue'
 
 const router = createRouter({
@@ -8,8 +8,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'SignUp',
-      component: SignUp
+      name: 'SignIn',
+      component: SignIn
     },
     {
       path: '/mailsend',
@@ -20,9 +20,9 @@ const router = createRouter({
       component: () => import('../views/MailSend.vue')
     },
     {
-      path: '/signin',
-      name: 'SignIn',
-      component: SignIn
+      path: '/signUp',
+      name: 'SignUp',
+      component: SignUp
     },
     {
       path: '/home',

@@ -54,7 +54,7 @@ onMounted( () => {
 					<h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign In</h1>
 					<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
 						Not yet registered?
-						<router-link to="/" class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign up here</router-link>
+						<router-link to="/signup" class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign up here</router-link>
 					</p>
 				</div>
 
