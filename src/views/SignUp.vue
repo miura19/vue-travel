@@ -39,14 +39,6 @@ const handleSubmit = async () => {
 	}
 };
 
-// onMounted(async () => {
-// 	const { data, error } = await supabase
-// 		.from('auth.users')
-// 		.select()
-// 	console.log(data);
-
-// })
-
 </script>
 
 <template>

@@ -7,6 +7,7 @@ const router = useRouter();
 
 const email = ref('');
 const password = ref('');
+const signoutMessage = ref('');
 
 const handleSubmit = async () => {
 	console.log('Email:', email.value);
@@ -32,19 +33,22 @@ const handleSubmit = async () => {
 	}
 };
 
-// onMounted(async () => {
-// 	const { data, error } = await supabase
-// 		.from('auth.users')
-// 		.select()
-// 	console.log(data);
-
-// })
+onMounted( () => {
+    console.log(router.currentRoute.value.query.signout);	
+	if (router.currentRoute.value.query.signout === 'true'){
+		signoutMessage.value = 'サインアウトしました！'
+	}
+})
 
 </script>
 
 <template>
-	<main class="w-full max-w-2xl mx-auto p-6">
-		<div class="mt-40 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+	<main class="w-full max-w-2xl mx-auto p-6 mt-40">
+		
+		<div v-if="signoutMessage" class="mx-auto text-lg font-bold bg-cyan-100 w-1/2 py-2 rounded-md text-center">
+			{{ signoutMessage }}
+		</div>
+		<div class="mt-8 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
 			<div class="p-4 sm:p-7">
 				<div class="text-center">
 					<h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign In</h1>
