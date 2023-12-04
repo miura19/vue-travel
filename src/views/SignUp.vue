@@ -22,13 +22,33 @@ const handleSubmit = async () => {
 					userName: name.value,
 				},
 			},
+
 		});
+		console.log(data);
 
 		if (error !== null) {
 			throw error;
 		}
 
 		if (data) {
+			const { data: userData, error: userError } = await supabase
+				.from('users')
+				.insert([
+					{
+						id: data.user?.id,
+						name: data.user?.user_metadata.userName,
+						email: data.user?.email,
+						created_at: data.user?.created_at
+					},
+				]);
+
+			if (userError) {
+				console.error('Insert user error:', userError);
+				// エラー処理
+			} else {
+				console.log('Insert user success:', userData);
+				// userDataには新しい行が追加された場合の情報が含まれる
+			}
 			router.push({
 				name: 'MailSend',
 			});
@@ -53,7 +73,9 @@ const handleSubmit = async () => {
 							href="../examples/html/signup.html">
 							Sign in here
 						</a> -->
-						<router-link to="/" class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign in here</router-link>
+						<router-link to="/"
+							class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign
+							in here</router-link>
 					</p>
 				</div>
 
